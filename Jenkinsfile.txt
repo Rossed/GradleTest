@@ -7,13 +7,13 @@ pipeline {
     stages {    
         stage('Build') {
             steps {
-                echo "Hello $EXECUTOR_NUMBER, we are building..."
+                echo "Hello $EXECUTOR_NUMBER, we are building $BUILD_TAG"
                 sh './gradlew build'
                 echo "Build Success"
             }
             post {
                 failure {
-                    echo 'FAILURE IN BUILD'
+                    echo 'FAILURE IN BUILD $BUILD_NUMBER'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
             }
             post {
                 failure {
-                    echo 'FAILURE WHEN RUNNING BUILD'
+                    echo 'FAILURE WHEN RUNNING BUILD $BUILD_NUMBER'
                 }
             }
         }

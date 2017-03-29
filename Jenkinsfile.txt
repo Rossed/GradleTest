@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Hello ${params.Username}, we are building..."
-                sh '.gradlew build'
+                sh './gradlew build'
                 echo "Build Success"
             }
             post {

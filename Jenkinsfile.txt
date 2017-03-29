@@ -21,7 +21,7 @@ pipeline {
             steps {
                 parallel (
                     'test 1': {
-                        echo "running build"
+                        echo "running $BUILD_NUMBER"
                         sh './gradlew run --info'
                     },
                     'test 2': {

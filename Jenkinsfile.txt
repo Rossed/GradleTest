@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    parameters {
+            string(name: 'Username', defaultValue: 'Ross', description: 'Who is running the build')
+        }
+    stages {    
+        stage('Build') {
+            steps {
+                echo "Hello ${params.Username}, we are building..."
+                sh '.gradlew build'
+                echo "Build Success"
+            }
+            post {
+                failure {
+                    echo 'FAILURE IN. BUILD'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                parallel (
+                    'test 1': {
+                        sh './gradlew run --info'
+                    },
+                    'test 2': {
+                        echo 'running test 2'
+                    }
+                )
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}

@@ -4,13 +4,10 @@ pipeline {
     parameters {
             string(name: 'Username', defaultValue: 'Ross', description: 'Who is running the build')
         }
-    environment {
-        user = $BUILD_USER
-    }
     stages {    
         stage('Build') {
             steps {
-                echo "Hello ${user}, we are building..."
+                echo "Hello $EXECUTOR_NUMBER, we are building..."
                 sh './gradlew build'
                 echo "Build Success"
             }

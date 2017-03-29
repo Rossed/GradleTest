@@ -3,15 +3,38 @@ pipeline {
 
     parameters {
             string(name: 'Username', defaultValue: 'Ross', description: 'Who is running the build')
+            string(name: 'Environment', defaultValue: 'TDN int', description: 'Deploy to? (TDN Int, DRN)')
         }
     stages {    
-        stage('Build') {
+        stage('Build to TDN Int') {
+            when {
+                params.Environment == "TDN Int"
+            }
             steps {
                 echo "Hello ${params.Username}, we are building $BUILD_TAG"
                 sh './gradlew build'
-                echo "$BUILD_TAG Successfully built"
             }
             post {
+                success {
+                    echo "$BUILD_TAG SUCCESSFULLY BUILT"
+                }
+                failure {
+                    echo 'FAILURE IN BUILD $BUILD_TAG'
+                }
+            }
+        }
+        stage('Build to TDN') {
+            when {
+                params.Environment == "DRN"
+            }
+            steps {
+                echo "Hello ${params.Username}, we are building $BUILD_TAG to DRN"
+                sh './gradlew build'
+            }
+            post {
+                success {
+                    echo "$BUILD_TAG SUCCESSFULLY BUILT"
+                }
                 failure {
                     echo 'FAILURE IN BUILD $BUILD_TAG'
                 }

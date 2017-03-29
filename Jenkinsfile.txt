@@ -13,7 +13,7 @@ pipeline {
             }
             post {
                 failure {
-                    echo 'FAILURE IN. BUILD'
+                    echo 'FAILURE IN BUILD'
                 }
             }
         }
@@ -21,6 +21,7 @@ pipeline {
             steps {
                 parallel (
                     'test 1': {
+                        echo "running build"
                         sh './gradlew run --info'
                     },
                     'test 2': {
@@ -28,11 +29,20 @@ pipeline {
                     }
                 )
             }
+            post {
+                failure {
+                    echo 'FAILURE WHEN RUNNING BUILD'
+                }
+            }
         }
-
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+            }
+            post {
+                failure {
+                    echo 'FAILURE IN DEPLOYMENT'
+                }
             }
         }
     }

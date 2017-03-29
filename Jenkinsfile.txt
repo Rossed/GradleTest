@@ -8,7 +8,7 @@ pipeline {
     stages {    
         stage('Build to TDN Int') {
             when {
-                params.Environment == "TDN Int"
+                ${params.Environment} == "TDN Int"
             }
             steps {
                 echo "Hello ${params.Username}, we are building $BUILD_TAG"

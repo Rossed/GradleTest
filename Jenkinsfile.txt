@@ -7,7 +7,7 @@ pipeline {
     stages {    
         stage('Build') {
             steps {
-                echo "Hello $BUILD_USER, we are building $BUILD_TAG"
+                echo "Hello $EXECUTOR_NUMBER, we are building $BUILD_TAG"
                 sh './gradlew build'
                 echo "Build Success"
             }

@@ -9,11 +9,11 @@ pipeline {
             steps {
                 echo "Hello ${params.Username}, we are building $BUILD_TAG"
                 sh './gradlew build'
-                echo "Build Success"
+                echo "$BUILD_TAG Successfully built"
             }
             post {
                 failure {
-                    echo 'FAILURE IN BUILD $BUILD_NUMBER'
+                    echo 'FAILURE IN BUILD $BUILD_TAG'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 parallel (
                     'test 1': {
-                        echo "running $BUILD_NUMBER"
+                        echo "running $BUILD_TAG"
                         sh './gradlew run --info'
                     },
                     'test 2': {
@@ -31,17 +31,17 @@ pipeline {
             }
             post {
                 failure {
-                    echo 'FAILURE WHEN RUNNING BUILD $BUILD_NUMBER'
+                    echo 'FAILURE WHEN RUNNING BUILD $BUILD_TAG'
                 }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying $BUILD_TAG'
             }
             post {
                 failure {
-                    echo 'FAILURE IN DEPLOYMENT'
+                    echo 'FAILURE IN DEPLOYMENT OF $BUILD_TAG'
                 }
             }
         }

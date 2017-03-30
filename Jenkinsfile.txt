@@ -10,7 +10,6 @@ pipeline {
             choices: 'TDN int\nDRN',
             description: '',
             name: 'REQUESTED_ACTION')
-
         }
     stages {    
         stage('Build to TDN Int') {

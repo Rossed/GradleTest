@@ -6,7 +6,7 @@ pipeline {
             choice(
             // choices are a string of newline separated values
             // https://issues.jenkins-ci.org/browse/JENKINS-41180
-            choices: 'TDN int\nDRN',
+            choices: 'TDN Int\nDRN',
             description: '',
             name: 'Environment')
         }
@@ -16,7 +16,7 @@ pipeline {
                 parallel (
                     'TDN int': {
                         when {
-                            expression { params.Environment == "TDN Int" }
+                            expression { params.Environment == 'TDN Int' }
                         }
                         steps {
                             echo "Hello ${params.Username}, we are building $BUILD_TAG"
@@ -33,7 +33,7 @@ pipeline {
                     },
                     'DRN': {
                         when {
-                        expression { params.Environment == "DRN" }
+                        expression { params.Environment == 'DRN' }
                         }
                         steps {
                             echo "Hello ${params.Username}, we are building $BUILD_TAG to DRN"

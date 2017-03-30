@@ -24,7 +24,7 @@ pipeline {
                     echo "$BUILD_TAG SUCCESSFULLY BUILT"
                 }
                 failure {
-                    echo 'FAILURE IN BUILD $BUILD_TAG'
+                    echo "FAILURE IN BUILD $BUILD_TAG"
                 }
             }
         }
@@ -41,7 +41,7 @@ pipeline {
                     echo "$BUILD_TAG SUCCESSFULLY BUILT"
                 }
                 failure {
-                    echo 'FAILURE IN BUILD $BUILD_TAG'
+                    echo "FAILURE IN BUILD $BUILD_TAG"
                 }
             }
         }
@@ -54,23 +54,22 @@ pipeline {
                     },
                     'test 2': {
                         echo 'running test 2'
-                        echo "${params.Environment}"
                     }
                 )
             }
             post {
                 failure {
-                    echo 'FAILURE WHEN RUNNING BUILD $BUILD_TAG'
+                    echo "FAILURE WHEN RUNNING BUILD $BUILD_TAG"
                 }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying $BUILD_TAG'
+                echo "Deploying $BUILD_TAG"
             }
             post {
                 failure {
-                    echo 'FAILURE IN DEPLOYMENT OF $BUILD_TAG'
+                    echo "FAILURE IN DEPLOYMENT OF $BUILD_TAG"
                 }
             }
         }

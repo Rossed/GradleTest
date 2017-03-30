@@ -10,42 +10,39 @@ pipeline {
             description: '',
             name: 'Environment')
         }
-    stages {
-        stage('Build to Environment') {
-            steps {    
-                parallel (
-                    'TDN int': {
-                        echo 'starting'
-                        when {
-                            expression { params.Environment == 'TDN Int' }
-                        }
-                        echo "Hello ${params.Username}, we are building $BUILD_TAG"
-                        sh './gradlew build'
-                        post {
-                            success {
-                                echo "$BUILD_TAG SUCCESSFULLY BUILT"
-                            }
-                            failure {
-                                echo 'FAILURE IN BUILD $BUILD_TAG'
-                            }
-                        }   
-                    },
-                    'DRN': {
-                        when {
-                            expression { params.Environment == 'DRN' }
-                        }
-                        echo "Hello ${params.Username}, we are building $BUILD_TAG to DRN"
-                        sh './gradlew build'
-                        post {
-                            success {
-                                echo "$BUILD_TAG SUCCESSFULLY BUILT"
-                            }
-                            failure {
-                                echo 'FAILURE IN BUILD $BUILD_TAG'
-                            }
-                        }
-                    }
-                )
+    stages {    
+        stage('Build to TDN Int') {
+            when {
+                expression { params.Environment == "TDN Int" }
+            }
+            steps {
+                echo "Hello ${params.Username}, we are building $BUILD_TAG"
+                sh './gradlew build'
+            }
+            post {
+                success {
+                    echo "$BUILD_TAG SUCCESSFULLY BUILT"
+                }
+                failure {
+                    echo 'FAILURE IN BUILD $BUILD_TAG'
+                }
+            }
+        }
+        stage('Build to DRN') {
+            when {
+                expression { params.Environment == "DRN" }
+            }
+            steps {
+                echo "Hello ${params.Username}, we are building $BUILD_TAG to DRN"
+                sh './gradlew build'
+            }
+            post {
+                success {
+                    echo "$BUILD_TAG SUCCESSFULLY BUILT"
+                }
+                failure {
+                    echo 'FAILURE IN BUILD $BUILD_TAG'
+                }
             }
         }
         stage('Test') {

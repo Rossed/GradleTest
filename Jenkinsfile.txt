@@ -4,6 +4,13 @@ pipeline {
     parameters {
             string(name: 'Username', defaultValue: 'Ross', description: 'Who is running the build')
             string(name: 'Environment', defaultValue: 'TDN int', description: 'Deploy to? (TDN Int, DRN)')
+            choice(
+            // choices are a string of newline separated values
+            // https://issues.jenkins-ci.org/browse/JENKINS-41180
+            choices: 'TDN int\nDRN',
+            description: '',
+            name: 'REQUESTED_ACTION')
+
         }
     stages {    
         stage('Build to TDN Int') {

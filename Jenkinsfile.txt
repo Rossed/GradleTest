@@ -47,13 +47,6 @@ pipeline {
                 }
             }
         )
-        stage('Build to TDN Int') {
-            
-            }
-        }
-        stage('Build to DRN') {
-            
-        }
         stage('Test') {
             steps {
                 parallel (

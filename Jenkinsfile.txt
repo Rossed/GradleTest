@@ -15,6 +15,7 @@ pipeline {
             steps {    
                 parallel (
                     'TDN int': {
+                        echo 'starting'
                         when {
                             expression { params.Environment == 'TDN Int' }
                         }

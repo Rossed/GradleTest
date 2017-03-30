@@ -18,10 +18,8 @@ pipeline {
                         when {
                             expression { params.Environment == 'TDN Int' }
                         }
-                        steps {
-                            echo "Hello ${params.Username}, we are building $BUILD_TAG"
-                            sh './gradlew build'
-                        }
+                        echo "Hello ${params.Username}, we are building $BUILD_TAG"
+                        sh './gradlew build'
                         post {
                             success {
                                 echo "$BUILD_TAG SUCCESSFULLY BUILT"
@@ -33,12 +31,10 @@ pipeline {
                     },
                     'DRN': {
                         when {
-                        expression { params.Environment == 'DRN' }
+                            expression { params.Environment == 'DRN' }
                         }
-                        steps {
-                            echo "Hello ${params.Username}, we are building $BUILD_TAG to DRN"
-                            sh './gradlew build'
-                        }
+                        echo "Hello ${params.Username}, we are building $BUILD_TAG to DRN"
+                        sh './gradlew build'
                         post {
                             success {
                                 echo "$BUILD_TAG SUCCESSFULLY BUILT"

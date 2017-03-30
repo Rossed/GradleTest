@@ -54,6 +54,7 @@ pipeline {
                     },
                     'test 2': {
                         echo 'running test 2'
+                        echo "${params.Environment"
                     }
                 )
             }
